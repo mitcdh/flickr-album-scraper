@@ -15,17 +15,19 @@ This Node.js module is designed to fetch album data from Flickr, including album
 
 2. **Install Dependencies**:
    Run the following command in your project directory to install required packages:
-   ```bash
-   npm install axios dotenv
 
-Environment Variables: Create a `.env` file in your project root and add your Flickr API key and User ID:
+```bash
+npm install axios dotenv
+```
+
+3. Environment Variables: Create a `.env` file in your project root and add your Flickr API key and User ID:
 
 ```sh
 FLICKR_API_KEY=your_flickr_api_key
 FLICKR_USER_ID=your_flickr_user_id
 ```
 
-Replace `your_flickr_api_key` and `your_flickr_user_id` with your actual Flickr API key and user ID.
+Replace `your_flickr_api_key` and `your_flickr_user_id` with your actual Flickr API key and user ID. You can also define a prefix date format through a regular expression with `DATE_REGEX` if desired.
 
 ## Usage
 

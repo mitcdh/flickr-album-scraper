@@ -3,6 +3,7 @@ const axios = require('axios');
 
 const FLICKR_API_KEY = process.env.FLICKR_API_KEY;
 const USER_ID = process.env.FLICKR_USER_ID;
+const DATE_REGEX = new RegExp(process.env.DATE_REGEX || '^\d{4}-\d{2}\s*');
 
 const getAlbums = async () => {
     try {
@@ -12,7 +13,7 @@ const getAlbums = async () => {
       return Promise.all(albums.map(async album => {
         const albumDetailsResponse = await axios.get(`https://www.flickr.com/services/rest/?method=flickr.photosets.getInfo&api_key=${FLICKR_API_KEY}&photoset_id=${album.id}&format=json&nojsoncallback=1`);
         const albumDetails = albumDetailsResponse.data.photoset;
-        const updatedTitle = albumDetails.title._content.replace(/^\d{4}-\d{2}\s*/, '');
+        const updatedTitle = albumDetails.title._content.replace(DATE_REGEX, '');
   
         const primaryPhotoResponse = await axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=${FLICKR_API_KEY}&photo_id=${album.primary}&format=json&nojsoncallback=1`);
         const primaryPhoto = primaryPhotoResponse.data.photo;

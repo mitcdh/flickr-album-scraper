@@ -1,4 +1,9 @@
 const https = require('https');
+try {
+  require('dotenv').config();
+} catch (error) {
+  console.warn("dotenv is not available. Continuing without loading environment variables from .env file.");
+}
 
 const FLICKR_API_KEY = process.env.FLICKR_API_KEY;
 const USER_ID = process.env.FLICKR_USER_ID;

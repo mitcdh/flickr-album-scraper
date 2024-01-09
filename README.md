@@ -13,14 +13,7 @@ This Node.js module is designed to fetch album data from Flickr, including album
 
 1. **Clone the Repository** (if you have it in a repository) or create a new Node.js project and include the provided module file (`flickr-album-scraper.js`).
 
-2. **Install Dependencies**:
-   Run the following command in your project directory to install required packages:
-
-```bash
-npm install axios dotenv
-```
-
-3. Environment Variables: Create a `.env` file in your project root and add your Flickr API key and User ID:
+2. Ensure you set the following environment variables:
 
 ```sh
 FLICKR_API_KEY=your_flickr_api_key
@@ -63,5 +56,6 @@ The module fetches the following data for each album:
 
 ## Notes
 
-*  This script does not handle pagination; modifications are needed for large albums.
-*  The module assumes all photos have EXIF data for the timestamp, which may not always be the case.
+*  This script does not handle pagination.
+*  The module assume the last photo in an album has EXIF data for the timestamp which may not always be the case. You can remedy this by just ensuring the last photo as organised in organizr is EXIF tagged.
+*  The module is opinionated to assume the last photo in the album is what the date should be set to.

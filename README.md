@@ -56,6 +56,5 @@ The module fetches the following data for each album:
 
 ## Notes
 
-*  This script does not handle pagination.
-*  The module assume the last photo in an album has EXIF data for the timestamp which may not always be the case. You can remedy this by just ensuring the last photo as organised in organizr is EXIF tagged.
-*  The module is opinionated to assume the last photo in the album is what the date should be set to.
+* Pagination is not handled.
+* The module assumes the last photo in an album has EXIF data for the timestamp, which may not always be the case. You can remedy this by just ensuring the last photo, as organised in organizr is EXIF tagged.

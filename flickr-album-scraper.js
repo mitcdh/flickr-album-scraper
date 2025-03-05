@@ -41,18 +41,16 @@ const getAlbums = async () => {
             const primaryPhoto = primaryPhotoResponse.photo;
             const primaryPhotoUrl = `https://farm${primaryPhoto.farm}.staticflickr.com/${primaryPhoto.server}/${primaryPhoto.id}_${primaryPhoto.secret}.jpg`;
 
-            const lastPhotoResponse = await httpsGet(`https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${FLICKR_API_KEY}&photoset_id=${album.id}&user_id=${USER_ID}&format=json&nojsoncallback=1`);
-            const photos = lastPhotoResponse.photoset.photo;
-            const lastPhoto = photos[photos.length - 1];
-
-            const exifResponse = await httpsGet(`https://www.flickr.com/services/rest/?method=flickr.photos.getExif&api_key=${FLICKR_API_KEY}&photo_id=${lastPhoto.id}&format=json&nojsoncallback=1`);
-            const exifData = exifResponse.photo;
-            const dateTimeOriginal = exifData.exif.find(tag => tag.tag === 'DateTimeOriginal');
+            const lastPhotoResponse = await httpsGet(`https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${FLICKR_API_KEY}&photoset_id=${album.id}&user_id=${USER_ID}&format=json&nojsoncallback=1&extras=date_taken`);
+            const photos = lastPhotoResponse.photoset.photo.sort((a, b) => 
+                new Date(b.datetaken) - new Date(a.datetaken)
+            );
+            const lastPhoto = photos[0];
 
             return {
                 title: updatedTitle,
                 description: albumDetails.description._content,
-                lastPhotoTimestamp: dateTimeOriginal ? dateTimeOriginal.raw._content : 'Unknown',
+                lastPhotoTimestamp: lastPhoto.datetaken || new Date(lastPhotoResponse.photoset.date_update).toISOString(),
                 link: `https://www.flickr.com/photos/${USER_ID}/sets/${album.id}`,
                 featureImageUrl: primaryPhotoUrl
             };
